@@ -2,6 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { IconButton } from "@mui/material"
 import { Container } from "@mui/system"
 import { useState } from "react"
+import { CourseEntityStatus, CourseEntityType } from "../../Domain/Entities/CourseEntity"
 import CourseList from "../components/Course/CourseList/CourseList.component"
 import CourseModal, { CourseModalMode } from "../components/Course/CourseList/CourseModal.component"
 import MainMenuBar from "../components/MainMenuBar.component"
@@ -12,9 +13,9 @@ const MainPage = () => {
         { label : "Configuración", route : "/settings"}
     ]
 
-    const courses = [
-        { id : "1" , name : "Programación Web", term : "2022-1"},
-        { id : "2" , name : "Programación Web", term : "2022-2"}
+    const courses : CourseEntityType[] = [
+        { id : "1" , name : "Programación Web", term : "2022-1", status : CourseEntityStatus.CREATED},
+        { id : "2" , name : "Programación Web", term : "2022-2", status : CourseEntityStatus.CREATED}
     ]
 
     const [showCourseModal, setShowCourseModal] = useState(false)

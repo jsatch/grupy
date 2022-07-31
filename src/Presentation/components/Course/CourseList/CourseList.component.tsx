@@ -1,10 +1,11 @@
 import { Grid } from "@mui/material"
-import CourseListItem, { Course } from "./CourseListItem.component"
+import { CourseEntityType } from "../../../../Domain/Entities/CourseEntity"
+import CourseListItem from "./CourseListItem.component"
 
 const CourseList = (props : CourseListProps) => {
     return <Grid container spacing={2} columns={2}>
         {
-            props.courses.map((course : Course) => (
+            props.courses.map((course : CourseEntityType) => (
                 <CourseListItem key={course.id} course={course} />
             ))
         }
@@ -13,7 +14,7 @@ const CourseList = (props : CourseListProps) => {
 }
 
 interface CourseListProps {
-    courses : Course[]
+    courses : CourseEntityType[]
 }
 
 export default CourseList

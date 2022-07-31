@@ -1,4 +1,5 @@
 import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
+import { AssignmentEntityType } from "../../../../Domain/Entities/AssignmentEntity"
 
 const AssignmentListItem = (props : AssignmentListItemProps) => {
     return <Grid item>
@@ -17,13 +18,8 @@ const AssignmentListItem = (props : AssignmentListItemProps) => {
     </Grid>
 }
 
-export interface Assignment {
-    id : string
-    name : string
-}
-
 interface AssignmentListItemProps {
-    assignment : Assignment
+    assignment : AssignmentEntityType
 }
 
 export default AssignmentListItem

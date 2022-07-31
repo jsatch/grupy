@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
 import { DataGrid, GridColDef } from '@mui/x-data-grid';
+import { StudentEntityType } from '../../../../Domain/Entities/StudentEntity';
 
 const StudentList = (props : StudentListProps) => {
 
@@ -20,15 +21,8 @@ const StudentList = (props : StudentListProps) => {
      </Box>
 }
 
-interface Student {
-    id : string
-    studentId : string
-    name : string
-    email : string
-}
-
 interface StudentListProps {
-    students : Student[]
+    students : StudentEntityType[]
 }
 
 export default StudentList

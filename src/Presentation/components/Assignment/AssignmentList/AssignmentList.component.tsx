@@ -1,10 +1,11 @@
 import { Grid } from "@mui/material"
-import AssignmentListItem, { Assignment } from "./AssignmentListItem.component"
+import { AssignmentEntityType } from "../../../../Domain/Entities/AssignmentEntity"
+import AssignmentListItem from "./AssignmentListItem.component"
 
 const AssignmentList = (props : AssignmentListProps) => {
     return <Grid container spacing={2} columns={2}>
         {
-            props.assignments.map((assignment : Assignment) => (
+            props.assignments.map((assignment : AssignmentEntityType) => (
                 <AssignmentListItem key={assignment.id} assignment={assignment} />
             ))
         }
@@ -13,7 +14,7 @@ const AssignmentList = (props : AssignmentListProps) => {
 }
 
 interface AssignmentListProps {
-    assignments : Assignment[]
+    assignments : AssignmentEntityType[]
 }
 
 export default AssignmentList

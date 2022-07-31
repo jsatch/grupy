@@ -1,4 +1,5 @@
 import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
+import { CourseEntityType } from "../../../../Domain/Entities/CourseEntity"
 
 const CourseListItem = (props : CourseListItemProps) => {
     return <Grid item>
@@ -24,13 +25,7 @@ const CourseListItem = (props : CourseListItemProps) => {
 }
 
 interface CourseListItemProps {
-    course : Course
-}
-
-export interface Course {
-    id : string
-    name : string
-    term : string
+    course : CourseEntityType
 }
 
 export default CourseListItem
