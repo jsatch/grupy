@@ -6,18 +6,18 @@ import MainMenuBar from "../components/MainMenuBar.component"
 
 const CoursePage = () => {
     const pages = [
-        { label : "Cursos", route : "/"},
-        { label : "Configuración", route : "/settings"}
+        { label: "Cursos", route: "/" },
+        { label: "Configuración", route: "/settings" }
     ]
 
     const [indexPanel, setIndexPanel] = useState(0)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setIndexPanel(newValue);
-      };
+    };
 
     return <>
-        <MainMenuBar pages={pages}/>
+        <MainMenuBar pages={pages} />
         <Container maxWidth="md">
             <h2>
                 Course NAme

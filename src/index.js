@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import './index.css';
+import AssignmentPage from './Presentation/pages/AssignmentPage.page';
 import CoursePage from './Presentation/pages/CoursePage.page';
 import MainPage from './Presentation/pages/MainPage.page';
 import SettingsPage from './Presentation/pages/SettingsPage.page';
@@ -15,6 +16,7 @@ root.render(
                 <Route path='/' element={<MainPage />} />
                 <Route path='/settings' element={<SettingsPage />} />
                 <Route path='/course' element={<CoursePage />} />
+                <Route path='/assignment' element={<AssignmentPage />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>
