@@ -22,7 +22,7 @@ const MainPage = () => {
 
     return <>
         <MainMenuBar pages={pages}/>
-        <Container maxWidth="md">
+        <Container>
             <h2>
                 Courses 
                 <IconButton color="primary" component="label"

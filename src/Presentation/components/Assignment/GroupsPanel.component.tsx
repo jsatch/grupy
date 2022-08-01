@@ -1,58 +1,12 @@
 import { Box, Button, Stack } from "@mui/material"
 import { useState } from "react"
-import GroupList from "../Group/GroupList/GroupList.component"
+import { getMockGroupsData, getMockStudentsData } from "../../../Mock/mockData"
+import GroupList, { GroupListMode } from "../Group/GroupList/GroupList.component"
 import GroupModal from "../Group/GroupList/GroupModal.component"
 
 const GroupsPanel = () => {
-    const groups = [
-        { 
-            id : "1", name : "Grupo 1", number : 1, assignmentId : "1",
-            students : [
-                { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-                { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-            ]
-        },
-        { id : "2", name : "Grupo 2", number : 2, assignmentId : "1", students : [] }
-    ]
-
-    const students =  [
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-        { id : "1",  studentId : "20222123", name : "Lionel Messi", email : "lmessi@ulima.edu.pe"},
-        { id : "2",  studentId : "20102134", name : "Cristiano Ronaldo", email : "cr7@ulima.edu.pe"},
-    ]
+    const groups = getMockGroupsData()
+    const students =  getMockStudentsData()
 
     const [showGroupModal, setShowGroupModal] = useState(true)
 
@@ -62,7 +16,7 @@ const GroupsPanel = () => {
                 Add
             </Button>
         </Box>
-        <GroupList groups={groups}/>
+        <GroupList groups={groups} columns={2} mode={ GroupListMode.EDIT }/>
         <GroupModal show={showGroupModal} 
             onCloseHandler={ () =>  setShowGroupModal(false)} 
             studentsLeft={ students }

@@ -6,6 +6,7 @@ import AssignmentPage from './Presentation/pages/AssignmentPage.page';
 import CoursePage from './Presentation/pages/CoursePage.page';
 import MainPage from './Presentation/pages/MainPage.page';
 import SettingsPage from './Presentation/pages/SettingsPage.page';
+import GradingPage from './Presentation/pages/GradingPage.page';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -17,6 +18,7 @@ root.render(
                 <Route path='/settings' element={<SettingsPage />} />
                 <Route path='/course' element={<CoursePage />} />
                 <Route path='/assignment' element={<AssignmentPage />} />
+                <Route path='/grading' element={<GradingPage />} />
             </Routes>
         </BrowserRouter>
     </React.StrictMode>

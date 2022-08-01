@@ -19,7 +19,7 @@ const AssignmentPage = () => {
     
     return <>
         <MainMenuBar pages={pages}/>
-        <Container maxWidth="md">
+        <Container>
             <h2>
                 Assignment Name
             </h2>

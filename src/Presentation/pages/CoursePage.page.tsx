@@ -18,7 +18,7 @@ const CoursePage = () => {
 
     return <>
         <MainMenuBar pages={pages} />
-        <Container maxWidth="md">
+        <Container>
             <h2>
                 Course NAme
             </h2>

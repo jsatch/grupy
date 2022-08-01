@@ -1,9 +1,30 @@
 import { Button, Card, CardActions, CardContent, Grid, List, ListItem, ListItemText, Typography } from "@mui/material"
 import { GroupEntityType } from "../../../../Domain/Entities/GroupEntity"
 import { StudentEntityType } from "../../../../Domain/Entities/StudentEntity"
+import { GroupListMode } from "./GroupList.component"
 
 const GroupListItem = (props : GroupListItemProps) => {
-    return <Grid item>
+
+    const EditButtons = () => {
+        return <CardActions>
+            <Button size="small">
+                Edit
+            </Button>
+            <Button size="small">
+                Delete
+            </Button>
+        </CardActions>
+    }
+
+    const SelectButtons = () => {
+        return <CardActions>
+            <Button size="small">
+                Select
+            </Button>
+        </CardActions>
+    }
+
+    return <Grid item xs={1}>
         <Card>
             <CardContent>
                 <Typography variant="h5" component="div">
@@ -19,20 +40,16 @@ const GroupListItem = (props : GroupListItemProps) => {
                     }
                 </List>
             </CardContent>
-            <CardActions>
-                <Button size="small">
-                    Edit
-                </Button>
-                <Button size="small">
-                    Delete
-                </Button>
-            </CardActions>
+            {
+                props.mode === GroupListMode.EDIT ? <EditButtons /> : <SelectButtons />
+            }
         </Card>
     </Grid>
 }
 
 interface GroupListItemProps {
     group : GroupEntityType
+    mode : GroupListMode
 }
 
 export default GroupListItem
