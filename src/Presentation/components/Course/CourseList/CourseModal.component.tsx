@@ -1,5 +1,6 @@
-import { Box, Button, Modal, Stack, TextField, Typography } from "@mui/material"
+import { Alert, Box, Button, Modal, Stack, TextField, Typography } from "@mui/material"
 import { useState } from "react";
+import { CourseEntityStatus, CourseEntityType } from "../../../../Domain/Entities/CourseEntity";
 
 export enum CourseModalMode {
     Add, Edit
@@ -20,6 +21,7 @@ const CourseModal = (props: CourseModalProps) => {
 
     const [courseName, setCourseName] = useState("")
     const [courseTerm, setCourseTerm] = useState("")
+    const [error, setError] = useState("")
 
     const handleCourseNameChange = (evt : any) => {
         setCourseName(evt.target.value)
@@ -27,6 +29,28 @@ const CourseModal = (props: CourseModalProps) => {
 
     const handleCourseTermChange = (evt : any) => {
         setCourseTerm(evt.target.value)
+    }
+
+    const createCourse = () => {
+        if (courseName === "" || courseTerm === "") {
+            setError("Fill all the empty fields")
+            return
+        }
+
+        if (courseTerm.length <= 5) {
+            setError("Term must be +5 characters")
+            return
+        }
+
+        props.onCreateCourseHandler({
+            id : "1",
+            name : courseName,
+            term : courseTerm,
+            status : CourseEntityStatus.CREATED
+        })
+        setError("")
+        setCourseName("")
+        setCourseTerm("")
     }
 
     return <Modal open={props.show}
@@ -49,8 +73,9 @@ const CourseModal = (props: CourseModalProps) => {
                     onChange={ handleCourseTermChange } />
                 <Stack direction="row" spacing={2} mt={2}
                     alignItems="center" justifyContent="center">
-                    <Button variant="contained" color="primary">
-                    { props.mode === CourseModalMode.Add ? "Save" : "Update" }
+                    <Button variant="contained" color="primary"
+                        onClick={ createCourse }>
+                        { props.mode === CourseModalMode.Add ? "Save" : "Update" }
                     </Button>
                     <Button variant="contained" color="primary"
                         onClick={() => {
@@ -61,6 +86,14 @@ const CourseModal = (props: CourseModalProps) => {
                         Cancel
                     </Button>
                 </Stack>
+                {
+                    (()=> {
+                        if (error !== "") {
+                            return <Alert severity="error">{ error }</Alert>
+                        }
+                    })()
+                }
+                
             </Stack>
         </Box>
     </Modal>
@@ -72,6 +105,7 @@ interface CourseModalProps {
     show: boolean
     mode : CourseModalMode
     onCloseHandler: () => void
+    onCreateCourseHandler : (course : CourseEntityType) => void
 }
 
 export default CourseModal

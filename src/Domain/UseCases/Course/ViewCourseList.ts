@@ -2,7 +2,7 @@ import CourseRepository from "../../../Data/repositories/CourseRepository"
 
 const viewCourseListUseCase = async () => {
     const courseRepository = CourseRepository()
-    return courseRepository.getAllCourses()
+    return await courseRepository.getAllCourses()
 }
 
 export default viewCourseListUseCase

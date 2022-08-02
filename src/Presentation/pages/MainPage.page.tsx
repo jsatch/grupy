@@ -1,7 +1,7 @@
 import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Alert, IconButton } from "@mui/material"
 import { Container } from "@mui/system"
-import { useEffect, useState } from "react"
+import { useEffect } from "react"
 import CourseList from "../components/Course/CourseList/CourseList.component"
 import CourseModal, { CourseModalMode } from "../components/Course/CourseList/CourseModal.component"
 import MainMenuBar from "../components/MainMenuBar.component"
@@ -13,9 +13,7 @@ const MainPage = () => {
         { label : "Configuración", route : "/settings"}
     ]
 
-    const [showCourseModal, setShowCourseModal] = useState(false)
-
-    const { courseList, error, getCourses } = useViewModel()
+    const { courseList, error, showCourseModal, setShowCourseModal, getCourses, createCourse } = useViewModel()
 
     useEffect(() => {
         getCourses()
@@ -43,7 +41,8 @@ const MainPage = () => {
             }
         </Container>
         <CourseModal show={ showCourseModal }
-            mode={ CourseModalMode.Edit }
+            mode={ CourseModalMode.Add }
+            onCreateCourseHandler={ createCourse }
             onCloseHandler={ () => setShowCourseModal(false) } />
         
     </>
