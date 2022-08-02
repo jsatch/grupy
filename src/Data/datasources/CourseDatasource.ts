@@ -55,9 +55,37 @@ const CourseDatasource = () => {
         }
     }
 
+    const updateCourse = async (course : CourseEntityType) => {
+        try {
+            const record = await db.Records.update("courses", course.id! ,{
+                name : course.name,
+                term : course.term,
+                status : course.status
+            })
+            return { 
+                results : {
+                    id : record.id,
+                    name : record.name,
+                    term : record.term,
+                    status : record.status
+                } , 
+                error :  ""
+            }
+        }catch(e : any ) {
+            if (e.status !== 0) {
+                console.error("Error:", e.data)
+                console.error("Error:", e.originalError)
+                return { results : null , error :  "Error updating course"}
+            }else {
+                return { results : [] , error :  ""}
+            }
+        }
+    }
+
     return {
         getCourses,
-        createCourse
+        createCourse,
+        updateCourse
     }
 }
 

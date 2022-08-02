@@ -19,8 +19,8 @@ const CourseModal = (props: CourseModalProps) => {
         p: 4,
     };
 
-    const [courseName, setCourseName] = useState("")
-    const [courseTerm, setCourseTerm] = useState("")
+    const [courseName, setCourseName] = useState(props.mode ===  CourseModalMode.Edit ? props.course!.name : "")
+    const [courseTerm, setCourseTerm] = useState(props.mode ===  CourseModalMode.Edit ? props.course!.term : "")
     const [error, setError] = useState("")
 
     const handleCourseNameChange = (evt : any) => {
@@ -31,7 +31,7 @@ const CourseModal = (props: CourseModalProps) => {
         setCourseTerm(evt.target.value)
     }
 
-    const createCourse = () => {
+    const saveCourse = () => {
         if (courseName === "" || courseTerm === "") {
             setError("Fill all the empty fields")
             return
@@ -42,12 +42,21 @@ const CourseModal = (props: CourseModalProps) => {
             return
         }
 
-        props.onCreateCourseHandler({
-            id : "1",
-            name : courseName,
-            term : courseTerm,
-            status : CourseEntityStatus.CREATED
-        })
+        if (props.mode === CourseModalMode.Add) {
+            props.onCreateCourseHandler({
+                name : courseName,
+                term : courseTerm,
+                status : CourseEntityStatus.CREATED
+            })
+        }else {
+            props.onUpdateCourseHandler({
+                id : props.course?.id,
+                name : courseName,
+                term : courseTerm,
+                status : CourseEntityStatus.CREATED
+            })
+        }
+
         setError("")
         setCourseName("")
         setCourseTerm("")
@@ -74,7 +83,7 @@ const CourseModal = (props: CourseModalProps) => {
                 <Stack direction="row" spacing={2} mt={2}
                     alignItems="center" justifyContent="center">
                     <Button variant="contained" color="primary"
-                        onClick={ createCourse }>
+                        onClick={ saveCourse }>
                         { props.mode === CourseModalMode.Add ? "Save" : "Update" }
                     </Button>
                     <Button variant="contained" color="primary"
@@ -104,8 +113,10 @@ const CourseModal = (props: CourseModalProps) => {
 interface CourseModalProps {
     show: boolean
     mode : CourseModalMode
+    course : CourseEntityType | null
     onCloseHandler: () => void
     onCreateCourseHandler : (course : CourseEntityType) => void
+    onUpdateCourseHandler : (course : CourseEntityType) => void
 }
 
 export default CourseModal

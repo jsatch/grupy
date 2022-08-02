@@ -6,7 +6,9 @@ const CourseList = (props : CourseListProps) => {
     return <Grid container spacing={2} columns={2}>
         {
             props.courses.map((course : CourseEntityType) => (
-                <CourseListItem key={course.id} course={course} />
+                <CourseListItem key={course.id} 
+                    course={course}
+                    onSelectCourseHandler={ props.onSelectCourseHandler } />
             ))
         }
         
@@ -15,6 +17,7 @@ const CourseList = (props : CourseListProps) => {
 
 interface CourseListProps {
     courses : CourseEntityType[]
+    onSelectCourseHandler : (couse : CourseEntityType) => void 
 }
 
 export default CourseList

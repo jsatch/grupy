@@ -13,7 +13,8 @@ const CourseListItem = (props : CourseListItemProps) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">
+                <Button size="small"
+                    onClick={ () => props.onSelectCourseHandler(props.course) } >
                     Edit
                 </Button>
                 <Button size="small">
@@ -26,6 +27,7 @@ const CourseListItem = (props : CourseListItemProps) => {
 
 interface CourseListItemProps {
     course : CourseEntityType
+    onSelectCourseHandler : (course : CourseEntityType) => void
 }
 
 export default CourseListItem

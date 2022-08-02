@@ -12,9 +12,14 @@ const CourseRepository = () => {
         return await datasource.createCourse(course)
     }
 
+    const updateCourse = async (course : CourseEntityType) => {
+        return await datasource.updateCourse(course)
+    }
+
     return {
         getAllCourses,
-        createCourse
+        createCourse,
+        updateCourse
     }
 }
 

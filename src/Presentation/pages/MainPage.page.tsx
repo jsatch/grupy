@@ -2,6 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Alert, IconButton } from "@mui/material"
 import { Container } from "@mui/system"
 import { useEffect } from "react"
+import { CourseEntityType } from "../../Domain/Entities/CourseEntity"
 import CourseList from "../components/Course/CourseList/CourseList.component"
 import CourseModal, { CourseModalMode } from "../components/Course/CourseList/CourseModal.component"
 import MainMenuBar from "../components/MainMenuBar.component"
@@ -13,11 +14,16 @@ const MainPage = () => {
         { label : "Configuración", route : "/settings"}
     ]
 
-    const { courseList, error, showCourseModal, setShowCourseModal, getCourses, createCourse } = useViewModel()
+    const { 
+        courseList, error, showCourseModal, courseModalMode, selectedCourse,
+        selectCourse, setShowCourseModal, getCourses, createCourse, updateCourse,
+        setCourseModalMode, setSelectedCourse
+    } = useViewModel()
 
     useEffect(() => {
         getCourses()
     }, [])
+
 
     return <>
         <MainMenuBar pages={pages}/>
@@ -26,12 +32,17 @@ const MainPage = () => {
                 Courses 
                 <IconButton color="primary" component="label"
                     onClick={
-                        () =>  setShowCourseModal(true)
+                        () =>  {
+                            setCourseModalMode(CourseModalMode.Add)
+                            setSelectedCourse(null)
+                            setShowCourseModal(true)
+                        }
                     }>
                     <AddCircleIcon />
                 </IconButton>
             </h2>
-            <CourseList courses={ courseList }/>
+            <CourseList courses={ courseList }
+                onSelectCourseHandler={ (course : CourseEntityType) => selectCourse(course)  }/>
             {
                 (() => {
                     if (error !== "") {
@@ -40,10 +51,22 @@ const MainPage = () => {
                 })()
             }
         </Container>
-        <CourseModal show={ showCourseModal }
-            mode={ CourseModalMode.Add }
-            onCreateCourseHandler={ createCourse }
-            onCloseHandler={ () => setShowCourseModal(false) } />
+        {
+            (()=> {
+                if (showCourseModal) {
+                    return <CourseModal show={ showCourseModal }
+                        mode={ courseModalMode }
+                        onCreateCourseHandler={ createCourse }
+                        onUpdateCourseHandler={ updateCourse }
+                        course={ selectedCourse }
+                        onCloseHandler={ () => {
+                            setCourseModalMode(CourseModalMode.Add)
+                            setShowCourseModal(false) 
+                        } }/>
+                }
+            })()
+        }
+        
         
     </>
 }
