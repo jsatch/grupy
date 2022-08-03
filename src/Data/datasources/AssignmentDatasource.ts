@@ -29,8 +29,34 @@ const AssignmentDatasource = () => {
         }
     }
 
+    const createAssignment = async(assignment : AssignmentEntityType) => {
+        try {
+            const recordCourse = await db.Records.getOne("courses", 
+                assignment.courseId)
+
+            const record = await db.Records.create("assignments", {
+                name : assignment.name,
+                course : recordCourse
+            })
+            return { 
+                results : record, 
+                error : ""
+            }
+
+        }catch(e : any ) {
+            if (e.status !== 0) {
+                console.error("Error:", e.data)
+                console.error("Error:", e.originalError)
+                return { results : null , error :  "Error creating an assignment"}
+            }else {
+                return { results : [] , error :  ""}
+            }
+        }
+    }
+
     return {
-        getAssignments
+        getAssignments,
+        createAssignment
     }
 }
 

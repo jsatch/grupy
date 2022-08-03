@@ -2,7 +2,7 @@ import { Box, Container, Tab, Tabs } from "@mui/material"
 import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { CourseEntityType } from "../../Domain/Entities/CourseEntity"
-import AssignmentsPanel from "../components/Course/AssignmentsPanel.component"
+import AssignmentsPanel from "../components/Course/AssignmentsPanel/AssignmentsPanel.component"
 import StudentsPanel from "../components/Course/StudentsPanel.component"
 import MainMenuBar from "../components/MainMenuBar.component"
 import useViewModel from "../viewmodels/CoursePageViewModel"
@@ -27,6 +27,7 @@ const CoursePage = () => {
     }, [])
 
     const [indexPanel, setIndexPanel] = useState(0)
+    const [selectCourse, setSelectedCourse] = useState<CourseEntityType | null>(null)
 
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setIndexPanel(newValue);
@@ -48,7 +49,9 @@ const CoursePage = () => {
             </Box>
             <div role="tabpanel"
                 hidden={indexPanel !== 0}>
-                <AssignmentsPanel assignments={ assignments }/>
+                <AssignmentsPanel 
+                    assignments={ assignments }
+                    course={ state.course }/>
             </div>
             <div role="tabpanel"
                 hidden={indexPanel !== 1}>
