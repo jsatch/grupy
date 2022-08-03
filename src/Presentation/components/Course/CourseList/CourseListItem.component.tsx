@@ -1,7 +1,11 @@
 import { Button, Card, CardActions, CardContent, Grid, Typography } from "@mui/material"
+import { useNavigate } from "react-router-dom"
 import { CourseEntityType } from "../../../../Domain/Entities/CourseEntity"
 
 const CourseListItem = (props : CourseListItemProps) => {
+
+    const navigate = useNavigate()
+
     return <Grid item>
         <Card>
             <CardContent>
@@ -17,7 +21,12 @@ const CourseListItem = (props : CourseListItemProps) => {
                     onClick={ () => props.onSelectCourseHandler(props.course) } >
                     Edit
                 </Button>
-                <Button size="small">
+                <Button size="small"
+                    onClick={() => navigate("/course", {
+                        state : {
+                            course : props.course
+                        }
+                    })}>
                     Assignments
                 </Button>
             </CardActions>

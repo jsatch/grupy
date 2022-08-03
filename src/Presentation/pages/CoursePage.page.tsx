@@ -1,14 +1,30 @@
 import { Box, Container, Tab, Tabs } from "@mui/material"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useLocation } from "react-router-dom"
+import { CourseEntityType } from "../../Domain/Entities/CourseEntity"
 import AssignmentsPanel from "../components/Course/AssignmentsPanel.component"
 import StudentsPanel from "../components/Course/StudentsPanel.component"
 import MainMenuBar from "../components/MainMenuBar.component"
+import useViewModel from "../viewmodels/CoursePageViewModel"
+
+interface CoursePageState {
+    course : CourseEntityType
+}
 
 const CoursePage = () => {
     const pages = [
         { label: "Cursos", route: "/" },
         { label: "Configuración", route: "/settings" }
     ]
+
+    const location = useLocation();
+    const state = location.state as CoursePageState
+
+    const { assignments, getAssignmentsByCourseId } = useViewModel()
+
+    useEffect(() => {
+        getAssignmentsByCourseId(state.course.id!)
+    }, [])
 
     const [indexPanel, setIndexPanel] = useState(0)
 
@@ -20,7 +36,7 @@ const CoursePage = () => {
         <MainMenuBar pages={pages} />
         <Container>
             <h2>
-                Course NAme
+                { state.course.name }
             </h2>
             <Box sx={{ width: '100%' }}>
                 <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
@@ -31,13 +47,14 @@ const CoursePage = () => {
                 </Box>
             </Box>
             <div role="tabpanel"
-                hidden={indexPanel === 0}>
-                <StudentsPanel />
+                hidden={indexPanel !== 0}>
+                <AssignmentsPanel assignments={ assignments }/>
             </div>
             <div role="tabpanel"
-                hidden={indexPanel === 1}>
-                <AssignmentsPanel />
+                hidden={indexPanel !== 1}>
+                <StudentsPanel />
             </div>
+            
         </Container>
     </>
 
