@@ -21,13 +21,14 @@ const CoursePage = () => {
     const location = useLocation();
     const state = location.state as CoursePageState
 
-    const { assignments, error, showAssignmentModal,
+    const { assignments, error, showAssignmentModal, students,
         getAssignmentsByCourseId, setShowAssignmentModal, createAssignment,
-        updateAssignment, setAssignmentModalMode 
+        updateAssignment, setAssignmentModalMode , getStudentsByCourseId
     } = useViewModel()
 
     useEffect(() => {
         getAssignmentsByCourseId(state.course.id!)
+        getStudentsByCourseId(state.course.id!)
     }, [])
 
     const [indexPanel, setIndexPanel] = useState(0)
@@ -68,7 +69,7 @@ const CoursePage = () => {
             </div>
             <div role="tabpanel"
                 hidden={indexPanel !== 1}>
-                <StudentsPanel />
+                <StudentsPanel students={ students }/>
             </div>
             
         </Container>

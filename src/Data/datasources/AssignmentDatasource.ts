@@ -31,12 +31,12 @@ const AssignmentDatasource = () => {
 
     const createAssignment = async(assignment : AssignmentEntityType) => {
         try {
-            const recordCourse = await db.Records.getOne("courses", 
-                assignment.courseId)
+            // const recordCourse = await db.Records.getOne("courses", 
+            //     assignment.courseId)
 
             const record = await db.Records.create("assignments", {
                 name : assignment.name,
-                course : recordCourse.id
+                course : assignment.courseId
             })
             return { 
                 results : record, 

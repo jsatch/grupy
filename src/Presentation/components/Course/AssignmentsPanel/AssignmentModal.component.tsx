@@ -33,7 +33,7 @@ const AssignmentModal = (props : AssignmentModalProps) => {
             return
         }
 
-        if (props.mode == AssignmentModalMode.Add) {
+        if (props.mode === AssignmentModalMode.Add) {
             props.onCreateAssignmentHandler({
                 name : assignmentName,
                 courseId : props.course.id!
