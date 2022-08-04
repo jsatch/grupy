@@ -3,6 +3,8 @@ import { AssignmentEntityType } from "../../Domain/Entities/AssignmentEntity"
 import { StudentEntityType } from "../../Domain/Entities/StudentEntity"
 import createAssignmentUseCase from "../../Domain/UseCases/Assignment/CreateAssignment"
 import viewAssignmentsFromCourseUseCase from "../../Domain/UseCases/Assignment/ViewAssignmentsFromCourse"
+import deleteStudentUseCase from "../../Domain/UseCases/Student/CreateStudent"
+import createStudentUseCase from "../../Domain/UseCases/Student/DeleteStudent"
 import viewStudentsFromCourseUseCase from "../../Domain/UseCases/Student/ViewStudentsFromCourse"
 import { AssignmentModalMode } from "../components/Course/AssignmentsPanel/AssignmentModal.component"
 
@@ -52,6 +54,29 @@ const CoursePageVieWModel = () => {
         return
     }
 
+    const enrollStudent = async (student : StudentEntityType) => {
+        const {error} = await createStudentUseCase(student)
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            getStudentsByCourseId(student.courseId)
+        }
+    }
+
+    const deleteStudents = async (studentIds : string[], courseId : string) => {
+        for (let id of studentIds) {
+            const {error} = await deleteStudentUseCase(id)
+            if (error !== "") break
+        }
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            getStudentsByCourseId(courseId)
+        }
+    }
+
     return {
         error,
         assignments,
@@ -63,7 +88,9 @@ const CoursePageVieWModel = () => {
         getAssignmentsByCourseId,
         createAssignment,
         updateAssignment,
-        getStudentsByCourseId
+        getStudentsByCourseId,
+        enrollStudent,
+        deleteStudents
     }
 }
 

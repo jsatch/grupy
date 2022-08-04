@@ -23,7 +23,8 @@ const CoursePage = () => {
 
     const { assignments, error, showAssignmentModal, students,
         getAssignmentsByCourseId, setShowAssignmentModal, createAssignment,
-        updateAssignment, setAssignmentModalMode , getStudentsByCourseId
+        updateAssignment, setAssignmentModalMode , getStudentsByCourseId,
+        enrollStudent, deleteStudents
     } = useViewModel()
 
     useEffect(() => {
@@ -36,6 +37,10 @@ const CoursePage = () => {
     const handleChange = (event: React.SyntheticEvent, newValue: number) => {
         setIndexPanel(newValue);
     };
+
+    const handleDeleteStudents = (studentsId : string[]) => {
+        deleteStudents(studentsId, state.course.id!)
+    }
 
     return <>
         <MainMenuBar pages={pages} />
@@ -69,7 +74,11 @@ const CoursePage = () => {
             </div>
             <div role="tabpanel"
                 hidden={indexPanel !== 1}>
-                <StudentsPanel students={ students }/>
+                <StudentsPanel 
+                    course={state.course}
+                    students={ students }
+                    onEnrollStudentHandler={ enrollStudent }
+                    onDeleteStudentsHandler={ handleDeleteStudents }/>
             </div>
             
         </Container>
