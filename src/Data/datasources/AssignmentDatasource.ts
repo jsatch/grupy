@@ -36,7 +36,7 @@ const AssignmentDatasource = () => {
 
             const record = await db.Records.create("assignments", {
                 name : assignment.name,
-                course : recordCourse
+                course : recordCourse.id
             })
             return { 
                 results : record, 

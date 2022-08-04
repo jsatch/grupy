@@ -11,20 +11,22 @@ const AssignmentsPanel = (props : AssignmentsPanelProps) => {
     return <Box sx={ {mt : 2 } }>
         <Button variant="contained"
             color="primary"
-            sx={ { mb : 2 } }>
+            sx={ { mb : 2 } }
+            onClick={ props.openAssignmentModal }>
             Create
         </Button>
         <AssignmentList assignments={props.assignments} />
         {
             (() => {
                 if (props.showAssignmentModal) {
-                    return <AssignmentModal show={props.showAssignmentModal}
+                    return <AssignmentModal 
+                        show={props.showAssignmentModal}
                         mode={ AssignmentModalMode.Add }
                         onCreateAssignmentHandler={ props.onCreateAssignmentHandler }
                         onUpdateAssignmentHandler={ props.onUpdateAssignmentHandler }
                         course={ props.course }
                         assignment={ null }
-                        onCloseHandler={ () => props.onCloseHandler }/>
+                        onCloseHandler={ props.onCloseHandler }/>
                 }
             })()
         }
@@ -35,6 +37,7 @@ interface AssignmentsPanelProps {
     assignments : AssignmentEntityType[]
     showAssignmentModal : boolean
     course : CourseEntityType
+    openAssignmentModal : () => void
     onCreateAssignmentHandler : (assignment : AssignmentEntityType) => void
     onUpdateAssignmentHandler : (assignment : AssignmentEntityType) => void
     onCloseHandler : () => void
