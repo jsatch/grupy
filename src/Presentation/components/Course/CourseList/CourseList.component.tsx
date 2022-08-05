@@ -8,7 +8,8 @@ const CourseList = (props : CourseListProps) => {
             props.courses.map((course : CourseEntityType) => (
                 <CourseListItem key={course.id} 
                     course={course}
-                    onSelectCourseHandler={ props.onSelectCourseHandler } />
+                    onSelectCourseHandler={ props.onSelectCourseHandler }
+                    onViewAssignmentsHandler={ props.onViewAssignmentsHandler } />
             ))
         }
         
@@ -18,6 +19,7 @@ const CourseList = (props : CourseListProps) => {
 interface CourseListProps {
     courses : CourseEntityType[]
     onSelectCourseHandler : (couse : CourseEntityType) => void 
+    onViewAssignmentsHandler : (couse : CourseEntityType) => void 
 }
 
 export default CourseList

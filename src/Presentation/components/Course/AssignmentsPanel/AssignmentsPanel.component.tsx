@@ -15,7 +15,10 @@ const AssignmentsPanel = (props : AssignmentsPanelProps) => {
             onClick={ props.openAssignmentModal }>
             Create
         </Button>
-        <AssignmentList assignments={props.assignments} />
+        <AssignmentList 
+            assignments={props.assignments}
+            onSelectAssignmentHandler={ props.onSelectAssignmentHandler }
+             />
         {
             (() => {
                 if (props.showAssignmentModal) {
@@ -40,6 +43,7 @@ interface AssignmentsPanelProps {
     openAssignmentModal : () => void
     onCreateAssignmentHandler : (assignment : AssignmentEntityType) => void
     onUpdateAssignmentHandler : (assignment : AssignmentEntityType) => void
+    onSelectAssignmentHandler : (assignment : AssignmentEntityType) => void
     onCloseHandler : () => void
 }
 

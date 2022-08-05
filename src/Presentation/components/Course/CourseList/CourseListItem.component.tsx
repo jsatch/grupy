@@ -22,11 +22,7 @@ const CourseListItem = (props : CourseListItemProps) => {
                     Edit
                 </Button>
                 <Button size="small"
-                    onClick={() => navigate("/course", {
-                        state : {
-                            course : props.course
-                        }
-                    })}>
+                    onClick={ () => props.onViewAssignmentsHandler(props.course)}>
                     Assignments
                 </Button>
             </CardActions>
@@ -37,6 +33,7 @@ const CourseListItem = (props : CourseListItemProps) => {
 interface CourseListItemProps {
     course : CourseEntityType
     onSelectCourseHandler : (course : CourseEntityType) => void
+    onViewAssignmentsHandler : (course : CourseEntityType) => void
 }
 
 export default CourseListItem

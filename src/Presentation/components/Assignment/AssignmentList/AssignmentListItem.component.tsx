@@ -10,7 +10,8 @@ const AssignmentListItem = (props : AssignmentListItemProps) => {
                 </Typography>
             </CardContent>
             <CardActions>
-                <Button size="small">
+                <Button size="small"
+                    onClick={ () => props.onSelectAssignmentHandler(props.assignment) }>
                     Edit
                 </Button>
             </CardActions>
@@ -20,6 +21,7 @@ const AssignmentListItem = (props : AssignmentListItemProps) => {
 
 interface AssignmentListItemProps {
     assignment : AssignmentEntityType
+    onSelectAssignmentHandler : (assignment : AssignmentEntityType) => void
 }
 
 export default AssignmentListItem

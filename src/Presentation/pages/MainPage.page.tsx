@@ -2,6 +2,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle"
 import { Alert, IconButton } from "@mui/material"
 import { Container } from "@mui/system"
 import { useEffect } from "react"
+import { useNavigate } from "react-router-dom"
 import { CourseEntityType } from "../../Domain/Entities/CourseEntity"
 import CourseList from "../components/Course/CourseList/CourseList.component"
 import CourseModal, { CourseModalMode } from "../components/Course/CourseList/CourseModal.component"
@@ -24,6 +25,15 @@ const MainPage = () => {
         getCourses()
     }, [])
 
+    const navigate = useNavigate()
+
+    const onViewAssignmentsHandler = (course : CourseEntityType) => {
+        navigate("/course", {
+            state : {
+                course : course
+            }
+        })
+    }
 
     return <>
         <MainMenuBar pages={pages}/>
@@ -42,7 +52,8 @@ const MainPage = () => {
                 </IconButton>
             </h2>
             <CourseList courses={ courseList }
-                onSelectCourseHandler={ (course : CourseEntityType) => selectCourse(course)  }/>
+                onSelectCourseHandler={ (course : CourseEntityType) => selectCourse(course)  }
+                onViewAssignmentsHandler={ onViewAssignmentsHandler }/>
             {
                 (() => {
                     if (error !== "") {

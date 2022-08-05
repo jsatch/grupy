@@ -1,6 +1,7 @@
 import { Box, Container, Tab, Tabs } from "@mui/material"
 import { useEffect, useState } from "react"
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
+import { AssignmentEntityType } from "../../Domain/Entities/AssignmentEntity"
 import { CourseEntityType } from "../../Domain/Entities/CourseEntity"
 import { AssignmentModalMode } from "../components/Course/AssignmentsPanel/AssignmentModal.component"
 import AssignmentsPanel from "../components/Course/AssignmentsPanel/AssignmentsPanel.component"
@@ -21,6 +22,8 @@ const CoursePage = () => {
     const location = useLocation();
     const state = location.state as CoursePageState
 
+    const navigate = useNavigate()
+
     const { assignments, error, showAssignmentModal, students,
         getAssignmentsByCourseId, setShowAssignmentModal, createAssignment,
         updateAssignment, setAssignmentModalMode , getStudentsByCourseId,
@@ -40,6 +43,15 @@ const CoursePage = () => {
 
     const handleDeleteStudents = (studentsId : string[]) => {
         deleteStudents(studentsId, state.course.id!)
+    }
+
+    const handleSelectAssignment = (assignment : AssignmentEntityType) => {
+        navigate("/assignment", {
+            state : {
+                course : state.course,
+                assignment : assignment
+            }
+        })
     }
 
     return <>
@@ -64,6 +76,7 @@ const CoursePage = () => {
                     course={ state.course }
                     onCreateAssignmentHandler={ createAssignment }
                     onUpdateAssignmentHandler={ updateAssignment }
+                    onSelectAssignmentHandler={ handleSelectAssignment }
                     onCloseHandler={ () => {
                         setAssignmentModalMode(AssignmentModalMode.Add)
                         setShowAssignmentModal(false) 
