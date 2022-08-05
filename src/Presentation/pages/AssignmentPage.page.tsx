@@ -24,13 +24,14 @@ const AssignmentPage = () => {
     const state = location.state as AssigmentPageState
 
     const {
-        error, requirements,
+        error, requirements, groups,
         getRequirementsByAssignmentId, createRequirement, updateRequirement,
-        deleteRequirement
+        deleteRequirement, getGroupsByAssignmentId
     } = useViewModel()
 
     useEffect(() => {
         getRequirementsByAssignmentId(state.assignment.id!)
+        getGroupsByAssignmentId(state.assignment.id!)
     }, [])
     
     const [indexPanel, setIndexPanel] = useState(0)
@@ -71,7 +72,7 @@ const AssignmentPage = () => {
             </div>
             <div role="tabpanel"
                 hidden={indexPanel !== 2}>
-                <GroupsPanel />
+                <GroupsPanel groups={ groups }/>
             </div>
         </Container>
     </>

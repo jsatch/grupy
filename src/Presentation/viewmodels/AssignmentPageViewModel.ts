@@ -1,5 +1,7 @@
 import { useState } from "react"
+import { GroupEntityType } from "../../Domain/Entities/GroupEntity"
 import { RequirementEntityType } from "../../Domain/Entities/RequirementEntity"
+import viewGroupsFromAssignmentUseCase from "../../Domain/UseCases/Group/viewGroupsFromAssignment"
 import createRequirementUseCase from "../../Domain/UseCases/Requirement/CreateRequirement"
 import deleteRequirementUseCase from "../../Domain/UseCases/Requirement/DeleteRequirement"
 import updateRequirementUseCase from "../../Domain/UseCases/Requirement/UpdateRequirement"
@@ -8,6 +10,7 @@ import viewRequirementsFromAssignmentUseCase from "../../Domain/UseCases/Require
 const AssignmentPageViewModel = () => {
     const [error, setError] = useState("")
     const [requirements, setRequirements] = useState<RequirementEntityType[]>([])
+    const [groups, setGroups] = useState<GroupEntityType[]>([])
 
     const getRequirementsByAssignmentId = async (assignmentId : string) => {
         const {results, error} = await viewRequirementsFromAssignmentUseCase(assignmentId)
@@ -52,13 +55,26 @@ const AssignmentPageViewModel = () => {
         }
     }
 
+    const getGroupsByAssignmentId = async (assignmentId : string) => {
+        const {results, error} = await viewGroupsFromAssignmentUseCase(assignmentId)
+
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            setGroups(results!)
+        }
+    }
+
     return {
         error,
         requirements,
+        groups,
         getRequirementsByAssignmentId,
         createRequirement,
         updateRequirement,
-        deleteRequirement
+        deleteRequirement,
+        getGroupsByAssignmentId
     }
 
     
