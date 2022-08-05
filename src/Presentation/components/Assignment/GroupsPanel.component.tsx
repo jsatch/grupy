@@ -8,7 +8,7 @@ const GroupsPanel = () => {
     const groups = getMockGroupsData()
     const students =  getMockStudentsData()
 
-    const [showGroupModal, setShowGroupModal] = useState(true)
+    const [showGroupModal, setShowGroupModal] = useState(false)
 
     return <Stack sx={ {mt : 2 } }>
         <Box sx={ { mb : 2 }}>

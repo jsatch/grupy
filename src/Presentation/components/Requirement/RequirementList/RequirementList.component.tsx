@@ -8,8 +8,7 @@ import RequirementListItem, { RequirementListItemMode } from "./RequirementListI
 import { RequirementCategory, RequirementEntityType } from "../../../../Domain/Entities/RequirementEntity"
 import { getMockRequirementsData } from "../../../../Mock/mockData"
 
-const RequirementList = () => {
-    const requirements : RequirementEntityType[] = getMockRequirementsData()
+const RequirementList = (props : RequirementListProps) => {
 
     const [requirementDescription, setRequirementDescription] = useState("")
     const [requirementType, setRequirementType] = useState(0)
@@ -30,8 +29,9 @@ const RequirementList = () => {
     return <TableContainer component={Paper} >
         <TableBody>
             {
-                requirements.map((req : RequirementEntityType, index : number) => (
-                    <RequirementListItem mode={RequirementListItemMode.View} 
+                props.requirements.map((req : RequirementEntityType, index : number) => (
+                    <RequirementListItem key={ req.id } 
+                        mode={RequirementListItemMode.View} 
                         index={ index }
                         requirement= {req }/>
                 ))
@@ -75,6 +75,10 @@ const RequirementList = () => {
             </TableRow>
         </TableBody>
     </TableContainer>
+}
+
+interface RequirementListProps {
+    requirements : RequirementEntityType[]
 }
 
 export default RequirementList
