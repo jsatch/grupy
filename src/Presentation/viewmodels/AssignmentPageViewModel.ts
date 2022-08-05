@@ -41,14 +41,14 @@ const AssignmentPageViewModel = () => {
         }
     }
 
-    const deleteRequirement = async(requirementId : string) => {
+    const deleteRequirement = async(requirementId : string, assignmentId : string) => {
         const {error} = await deleteRequirementUseCase(requirementId)
 
         if (error !== "") {
             setError(error)
         }else {
             setError(error)
-            getRequirementsByAssignmentId(requirementId)
+            getRequirementsByAssignmentId(assignmentId)
         }
     }
 

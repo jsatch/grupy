@@ -8,7 +8,8 @@ const RequirementsPanel = (props : RequirementPanelProps) => {
         <RequirementList requirements={props.requirements}
             assignment={ props.assignment }
             onCreateRequirementHandler={ props.onCreateRequirementHandler }
-            onUpdateRequirementHandler={ props.onUpdateRequirementHandler }/>
+            onUpdateRequirementHandler={ props.onUpdateRequirementHandler }
+            onDeleteRequirementHandler={ props.onDeleteRequirementHandler }/>
     </>
 }
 
@@ -17,6 +18,8 @@ interface RequirementPanelProps {
     assignment : AssignmentEntityType
     onCreateRequirementHandler : (requirement : RequirementEntityType) => void
     onUpdateRequirementHandler : (requirement : RequirementEntityType) => void
+    onDeleteRequirementHandler : (requirementId : string, assignmentId : string) => void
+
 }
 
 export default RequirementsPanel

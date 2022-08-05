@@ -25,7 +25,8 @@ const AssignmentPage = () => {
 
     const {
         error, requirements,
-        getRequirementsByAssignmentId, createRequirement, updateRequirement
+        getRequirementsByAssignmentId, createRequirement, updateRequirement,
+        deleteRequirement
     } = useViewModel()
 
     useEffect(() => {
@@ -65,7 +66,8 @@ const AssignmentPage = () => {
                     assignment={ state.assignment }
                     requirements={ requirements }
                     onCreateRequirementHandler={ createRequirement }
-                    onUpdateRequirementHandler={ updateRequirement }/>
+                    onUpdateRequirementHandler={ updateRequirement }
+                    onDeleteRequirementHandler={ deleteRequirement }/>
             </div>
             <div role="tabpanel"
                 hidden={indexPanel !== 2}>

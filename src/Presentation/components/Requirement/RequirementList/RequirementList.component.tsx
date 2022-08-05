@@ -1,7 +1,6 @@
 import { 
     IconButton, MenuItem, Paper, Select, TableBody, TableCell, TableContainer, TableRow, TextField 
 } from "@mui/material"
-import ClearIcon from "@mui/icons-material/Clear"
 import SaveIcon from "@mui/icons-material/Save"
 import { useState } from "react"
 import RequirementListItem, { RequirementListItemMode } from "./RequirementListItem.component"
@@ -54,7 +53,8 @@ const RequirementList = (props : RequirementListProps) => {
                         mode={RequirementListItemMode.View} 
                         index={ index }
                         requirement={req }
-                        onUpdateRequirementHandler={ props.onUpdateRequirementHandler }/>
+                        onUpdateRequirementHandler={ props.onUpdateRequirementHandler }
+                        onDeleteRequirementHandler={ props.onDeleteRequirementHandler }/>
                 ))
             }
             <TableRow>
@@ -89,9 +89,6 @@ const RequirementList = (props : RequirementListProps) => {
                     <IconButton onClick={ handleCreateRequirement }>
                         <SaveIcon />
                     </IconButton>
-                    <IconButton>
-                        <ClearIcon />
-                    </IconButton>
                 </TableCell>
             </TableRow>
         </TableBody>
@@ -103,6 +100,7 @@ interface RequirementListProps {
     assignment : AssignmentEntityType
     onCreateRequirementHandler : (requirement : RequirementEntityType) => void
     onUpdateRequirementHandler : (requirement : RequirementEntityType) => void
+    onDeleteRequirementHandler : (requirementId : string, assignmentId : string) => void
 }
 
 export default RequirementList
