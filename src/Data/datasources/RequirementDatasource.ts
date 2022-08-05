@@ -37,7 +37,7 @@ const RequirementDatasource = () => {
                 description : requirement.description,
                 category : requirement.category,
                 complexity : requirement.complexity,
-                assigment : requirement.assignmentId
+                assignment : requirement.assignmentId
             })
             return { 
                 results : record, 
