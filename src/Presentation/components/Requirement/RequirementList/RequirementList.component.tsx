@@ -53,7 +53,8 @@ const RequirementList = (props : RequirementListProps) => {
                     <RequirementListItem key={ req.id } 
                         mode={RequirementListItemMode.View} 
                         index={ index }
-                        requirement= {req }/>
+                        requirement={req }
+                        onUpdateRequirementHandler={ props.onUpdateRequirementHandler }/>
                 ))
             }
             <TableRow>
@@ -101,6 +102,7 @@ interface RequirementListProps {
     requirements : RequirementEntityType[]
     assignment : AssignmentEntityType
     onCreateRequirementHandler : (requirement : RequirementEntityType) => void
+    onUpdateRequirementHandler : (requirement : RequirementEntityType) => void
 }
 
 export default RequirementList

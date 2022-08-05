@@ -1,6 +1,8 @@
 import { useState } from "react"
 import { RequirementEntityType } from "../../Domain/Entities/RequirementEntity"
 import createRequirementUseCase from "../../Domain/UseCases/Requirement/CreateRequirement"
+import deleteRequirementUseCase from "../../Domain/UseCases/Requirement/DeleteRequirement"
+import updateRequirementUseCase from "../../Domain/UseCases/Requirement/UpdateRequirement"
 import viewRequirementsFromAssignmentUseCase from "../../Domain/UseCases/Requirement/ViewRequirementsFromAssignment"
 
 const AssignmentPageViewModel = () => {
@@ -28,11 +30,35 @@ const AssignmentPageViewModel = () => {
         }
     }
 
+    const updateRequirement = async(requirement : RequirementEntityType) => {
+        const {error} = await updateRequirementUseCase(requirement)
+
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            getRequirementsByAssignmentId(requirement.assignmentId)
+        }
+    }
+
+    const deleteRequirement = async(requirementId : string) => {
+        const {error} = await deleteRequirementUseCase(requirementId)
+
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            getRequirementsByAssignmentId(requirementId)
+        }
+    }
+
     return {
         error,
         requirements,
         getRequirementsByAssignmentId,
-        createRequirement
+        createRequirement,
+        updateRequirement,
+        deleteRequirement
     }
 
     
