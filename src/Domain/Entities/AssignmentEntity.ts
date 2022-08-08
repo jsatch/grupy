@@ -1,8 +1,11 @@
-const AssignmentEntity = (name : string, courseId : string, id? : string) : AssignmentEntityType => {
+import { StudentEntityType } from "./StudentEntity"
+
+const AssignmentEntity = (name : string, courseId : string, 
+    studentsWithoutGroup : StudentEntityType[], id? : string) : AssignmentEntityType => {
     return {
         id : id,
         name : name,
-        courseId : courseId
+        courseId : courseId,
     }
 }
 

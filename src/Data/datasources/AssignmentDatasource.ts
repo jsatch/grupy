@@ -11,7 +11,8 @@ const AssignmentDatasource = () => {
                 return {
                     id : record.id,
                     name : record.name,
-                    courseId : record.course
+                    courseId : record.course,
+                    studentsWithoutGroup : record.studentsWithoutGroup
                 }
             })
             return { 

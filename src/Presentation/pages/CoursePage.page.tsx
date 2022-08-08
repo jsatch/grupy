@@ -49,7 +49,8 @@ const CoursePage = () => {
         navigate("/assignment", {
             state : {
                 course : state.course,
-                assignment : assignment
+                assignment : assignment,
+                students : students
             }
         })
     }

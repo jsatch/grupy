@@ -1,7 +1,10 @@
 import { useState } from "react"
 import { GroupEntityType } from "../../Domain/Entities/GroupEntity"
 import { RequirementEntityType } from "../../Domain/Entities/RequirementEntity"
-import viewGroupsFromAssignmentUseCase from "../../Domain/UseCases/Group/viewGroupsFromAssignment"
+import createGroupUseCase from "../../Domain/UseCases/Group/CreateGroup"
+import deleteGroupUseCase from "../../Domain/UseCases/Group/DeleteGroup"
+import updateGroupUseCase from "../../Domain/UseCases/Group/UpdateGroup"
+import viewGroupsFromAssignmentUseCase from "../../Domain/UseCases/Group/ViewGroupsFromAssignment"
 import createRequirementUseCase from "../../Domain/UseCases/Requirement/CreateRequirement"
 import deleteRequirementUseCase from "../../Domain/UseCases/Requirement/DeleteRequirement"
 import updateRequirementUseCase from "../../Domain/UseCases/Requirement/UpdateRequirement"
@@ -11,7 +14,7 @@ const AssignmentPageViewModel = () => {
     const [error, setError] = useState("")
     const [requirements, setRequirements] = useState<RequirementEntityType[]>([])
     const [groups, setGroups] = useState<GroupEntityType[]>([])
-
+    const [showGroupModal, setShowGroupModal] = useState(false)
     const getRequirementsByAssignmentId = async (assignmentId : string) => {
         const {results, error} = await viewRequirementsFromAssignmentUseCase(assignmentId)
 
@@ -66,15 +69,53 @@ const AssignmentPageViewModel = () => {
         }
     }
 
+    const createGroup = async (group : GroupEntityType) => {
+        const {error} = await createGroupUseCase(group)
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            setShowGroupModal(false)
+            getGroupsByAssignmentId(group.assignmentId)
+        }
+    }
+
+    const updateGroup = async ( group : GroupEntityType) => {
+        const {error} = await updateGroupUseCase(group)
+
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            getGroupsByAssignmentId(group.assignmentId)
+        }
+    }
+
+    const deleteGroup = async (group : GroupEntityType) => {
+        const {error} = await deleteGroupUseCase(group.id!)
+
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            getGroupsByAssignmentId(group.assignmentId)
+        }
+    }
+
     return {
         error,
         requirements,
         groups,
+        showGroupModal,
         getRequirementsByAssignmentId,
         createRequirement,
         updateRequirement,
         deleteRequirement,
-        getGroupsByAssignmentId
+        getGroupsByAssignmentId,
+        createGroup,
+        updateGroup,
+        deleteGroup,
+        setShowGroupModal
     }
 
     

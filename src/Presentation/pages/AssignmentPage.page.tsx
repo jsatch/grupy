@@ -3,6 +3,7 @@ import { useEffect, useState } from "react"
 import { useLocation } from "react-router-dom"
 import { AssignmentEntityType } from "../../Domain/Entities/AssignmentEntity"
 import { CourseEntityType } from "../../Domain/Entities/CourseEntity"
+import { StudentEntityType } from "../../Domain/Entities/StudentEntity"
 import GroupsPanel from "../components/Assignment/GroupsPanel.component"
 import InstructionsPanel from "../components/Assignment/InstructionsPanel.component"
 import RequirementsPanel from "../components/Assignment/RequirementsPanel.component"
@@ -12,6 +13,7 @@ import useViewModel from "../viewmodels/AssignmentPageViewModel"
 interface AssigmentPageState {
     course : CourseEntityType
     assignment : AssignmentEntityType
+    students : StudentEntityType[]
 }
 
 const AssignmentPage = () => {
@@ -24,9 +26,10 @@ const AssignmentPage = () => {
     const state = location.state as AssigmentPageState
 
     const {
-        error, requirements, groups,
+        error, requirements, groups, showGroupModal,
         getRequirementsByAssignmentId, createRequirement, updateRequirement,
-        deleteRequirement, getGroupsByAssignmentId
+        deleteRequirement, getGroupsByAssignmentId, createGroup,
+        setShowGroupModal
     } = useViewModel()
 
     useEffect(() => {
@@ -72,7 +75,13 @@ const AssignmentPage = () => {
             </div>
             <div role="tabpanel"
                 hidden={indexPanel !== 2}>
-                <GroupsPanel groups={ groups }/>
+                <GroupsPanel groups={ groups }
+                    students={ state.students }
+                    assignment={ state.assignment }
+                    setShowGroupModal={ setShowGroupModal }
+                    onSaveGroupHandler={ createGroup }
+                    showGroupModal={ showGroupModal }
+                    onCloseHandler={ () => setShowGroupModal(false) }/>
             </div>
         </Container>
     </>

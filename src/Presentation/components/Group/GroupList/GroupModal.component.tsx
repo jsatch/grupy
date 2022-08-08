@@ -1,14 +1,16 @@
-import { Box, Button, Checkbox, Grid, List, ListItem, ListItemIcon, ListItemText, Modal, Paper } from "@mui/material"
+import { PropaneSharp } from "@mui/icons-material";
+import { Box, Button, Checkbox, Grid, List, ListItem, ListItemIcon, ListItemText, Modal, Paper, Stack, TextField } from "@mui/material"
 import { useState } from "react"
+import { GroupEntityType } from "../../../../Domain/Entities/GroupEntity";
 import { StudentEntityType } from "../../../../Domain/Entities/StudentEntity";
 
 const not = (a: readonly StudentEntityType[], b: readonly StudentEntityType[]) => {
     return a.filter((value) => b.indexOf(value) === -1);
-  }
+}
 
-const  intersection = (a: readonly StudentEntityType[], b: readonly StudentEntityType[])  => {
+const intersection = (a: readonly StudentEntityType[], b: readonly StudentEntityType[]) => {
     return a.filter((value) => b.indexOf(value) !== -1);
-  }
+}
 
 const GroupModal = (props: GroupModalProps) => {
 
@@ -26,51 +28,69 @@ const GroupModal = (props: GroupModalProps) => {
 
     const [checked, setChecked] = useState<readonly StudentEntityType[]>([]);
     const [left, setLeft] = useState<StudentEntityType[]>(props.studentsLeft);
-    const [right, setRight] = useState<StudentEntityType[]>([]);
+    const [right, setRight] = useState<StudentEntityType[]>([])
+    const [groupName, setGroupName] = useState("")
+    const [groupNameError, setGroupNameError] = useState("")
 
     const leftChecked = intersection(checked, left);
     const rightChecked = intersection(checked, right);
 
+    const handleGroupNameChange = (event: any) => {
+        setGroupName(event.target.value)
+    }
+
     const handleToggle = (value: StudentEntityType) => () => {
         const currentIndex = checked.indexOf(value);
         const newChecked = [...checked];
-    
+
         if (currentIndex === -1) {
-          newChecked.push(value);
+            newChecked.push(value);
         } else {
-          newChecked.splice(currentIndex, 1);
+            newChecked.splice(currentIndex, 1);
         }
-    
+
         setChecked(newChecked);
-      };
-    
-      const handleAllRight = () => {
+    };
+
+    const handleAllRight = () => {
         setRight(right.concat(left));
         setLeft([]);
-      };
-    
-      const handleCheckedRight = () => {
+    };
+
+    const handleCheckedRight = () => {
         setRight(right.concat(leftChecked));
         setLeft(not(left, leftChecked));
         setChecked(not(checked, leftChecked));
-      };
-    
-      const handleCheckedLeft = () => {
+    };
+
+    const handleCheckedLeft = () => {
         setLeft(left.concat(rightChecked));
         setRight(not(right, rightChecked));
         setChecked(not(checked, rightChecked));
-      };
-    
-      const handleAllLeft = () => {
+    };
+
+    const handleAllLeft = () => {
         setLeft(left.concat(right));
         setRight([]);
-      };
+    };
 
-      const ItemList = (props : { students : StudentEntityType[] }) => {
-        return <Paper sx={{ width: 200, height: 230, overflow: 'auto' }}>
+    const saveGroup = () => {
+        props.onSaveGroupHandler({
+            name : groupName,
+            number : 0,
+            assignmentId : props.assignmentId,
+            students : right
+        })
+        setGroupName("")
+        setRight([])
+    }
+
+
+    const ItemList = (props: { students: StudentEntityType[] }) => {
+        return <Paper sx={{ width: 300, height: 230, overflow: 'auto' }}>
             <List dense component="div" role="list">
                 {
-                    props.students.map((student : StudentEntityType) => {
+                    props.students.map((student: StudentEntityType) => {
                         return <ListItem
                             key={student.id}
                             role="listitem"
@@ -82,15 +102,15 @@ const GroupModal = (props: GroupModalProps) => {
                                     tabIndex={-1}
                                     disableRipple />
                             </ListItemIcon>
-                            <ListItemText 
-                                primary={ student.name } />
+                            <ListItemText
+                                primary={student.name} />
                         </ListItem>
                     })
                 }
             </List>
         </Paper>
     }
-    
+
     const CenterButtons = () => {
         return <>
             <Button
@@ -135,31 +155,57 @@ const GroupModal = (props: GroupModalProps) => {
     return <Modal open={props.show}
         onClose={props.onCloseHandler}>
         <Box sx={style}>
-            <h2>
-                Add Students
-            </h2>
-            <Grid container spacing={2} justifyContent="center" alignItems="center">
-                <Grid item>
-                    <ItemList students={left}/>
-                </Grid>
-                <Grid item>
-                    <Grid container direction="column" alignItems="center">
-                        <CenterButtons />
+            <Stack sx={{ mb: 2 }}>
+                <h2>
+                    Add group
+                </h2>
+                <TextField fullWidth value={groupName}
+                    label={"Group Name"}
+                    onChange={handleGroupNameChange}
+                    error={groupNameError !== ""}
+                    helperText={groupNameError} />
+            </Stack>
+            <Stack sx={{ mb: 2 }}>
+                <h4>Integrantes:</h4>
+                <Grid container spacing={2} justifyContent="center" alignItems="center">
+                    <Grid item>
+                        <ItemList students={left} />
+                    </Grid>
+                    <Grid item>
+                        <Grid container direction="column" alignItems="center">
+                            <CenterButtons />
+                        </Grid>
+                    </Grid>
+                    <Grid item>
+                        <ItemList students={right} />
                     </Grid>
                 </Grid>
-                <Grid item>
-                    <ItemList  students={right}/>
-                </Grid>
-            </Grid>
+            </Stack>
+            <Stack alignItems="center" direction="row"
+                justifyContent="center" spacing={2}>
+                <Button variant="contained" color="primary"
+                    onClick={ () => saveGroup() }>
+                    Save
+                </Button>
+                <Button variant="contained" color="primary"
+                    onClick={() => {
+                        setGroupName("")
+                        props.onCloseHandler()
+                    }}>
+                    Cancel
+                </Button>
+            </Stack>
         </Box>
     </Modal>
 }
 
 interface GroupModalProps {
     show: boolean
+    assignmentId : string
+    studentsLeft: StudentEntityType[]
+    studentsInGroup: StudentEntityType[]
     onCloseHandler: () => void
-    studentsLeft : StudentEntityType[]
-    studentsInGroup : StudentEntityType[]
+    onSaveGroupHandler: (group: GroupEntityType) => void
 }
 
 export default GroupModal
