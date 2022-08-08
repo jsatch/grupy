@@ -30,7 +30,8 @@ const GradingPage = () => {
             <Grid container spacing={2}>
                 <Grid item xs={3}>
                     <GroupList groups={ groups } columns={1}
-                        mode={ GroupListMode.SELECT }/>
+                        mode={ GroupListMode.SELECT }
+                        onDeleteGroupHandler={ () => {} }/>
                 </Grid>
                 <Grid item xs={9}>
                 <Box sx={{ width: '100%' }}>

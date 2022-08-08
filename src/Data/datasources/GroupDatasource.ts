@@ -12,7 +12,7 @@ const GroupDatasource = () => {
                     id : record.id,
                     name : record.name,
                     number : record.number,
-                    assignmentId : record.assignmentId,
+                    assignmentId : assignmentId,
                     students : record.students
                 }
             })

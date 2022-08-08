@@ -1,6 +1,7 @@
 import { useState } from "react"
 import { GroupEntityType } from "../../Domain/Entities/GroupEntity"
 import { RequirementEntityType } from "../../Domain/Entities/RequirementEntity"
+import { StudentEntityType } from "../../Domain/Entities/StudentEntity"
 import createGroupUseCase from "../../Domain/UseCases/Group/CreateGroup"
 import deleteGroupUseCase from "../../Domain/UseCases/Group/DeleteGroup"
 import updateGroupUseCase from "../../Domain/UseCases/Group/UpdateGroup"
@@ -9,12 +10,15 @@ import createRequirementUseCase from "../../Domain/UseCases/Requirement/CreateRe
 import deleteRequirementUseCase from "../../Domain/UseCases/Requirement/DeleteRequirement"
 import updateRequirementUseCase from "../../Domain/UseCases/Requirement/UpdateRequirement"
 import viewRequirementsFromAssignmentUseCase from "../../Domain/UseCases/Requirement/ViewRequirementsFromAssignment"
+import viewStudentsFromCourseUseCase from "../../Domain/UseCases/Student/ViewStudentsFromCourse"
 
 const AssignmentPageViewModel = () => {
     const [error, setError] = useState("")
     const [requirements, setRequirements] = useState<RequirementEntityType[]>([])
     const [groups, setGroups] = useState<GroupEntityType[]>([])
+    const [students, setStudents] = useState<StudentEntityType[]>([])
     const [showGroupModal, setShowGroupModal] = useState(false)
+
     const getRequirementsByAssignmentId = async (assignmentId : string) => {
         const {results, error} = await viewRequirementsFromAssignmentUseCase(assignmentId)
 
@@ -102,10 +106,21 @@ const AssignmentPageViewModel = () => {
         }
     }
 
+    const getStudentsByCourse = async (courseId : string) => {
+        const {results, error} = await viewStudentsFromCourseUseCase(courseId)
+        if (error !== "") {
+            setError(error)
+        }else {
+            setError(error)
+            setStudents(results!)
+        }
+    }
+
     return {
         error,
         requirements,
         groups,
+        students,
         showGroupModal,
         getRequirementsByAssignmentId,
         createRequirement,
@@ -115,6 +130,7 @@ const AssignmentPageViewModel = () => {
         createGroup,
         updateGroup,
         deleteGroup,
+        getStudentsByCourse,
         setShowGroupModal
     }
 

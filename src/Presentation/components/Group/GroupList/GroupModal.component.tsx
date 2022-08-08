@@ -75,6 +75,11 @@ const GroupModal = (props: GroupModalProps) => {
     };
 
     const saveGroup = () => {
+        if (groupName === "")
+        {
+            setGroupNameError("Error. Missing field")
+            return
+        }
         props.onSaveGroupHandler({
             name : groupName,
             number : 0,

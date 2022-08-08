@@ -26,13 +26,15 @@ const AssignmentPage = () => {
     const state = location.state as AssigmentPageState
 
     const {
-        error, requirements, groups, showGroupModal,
+        error, requirements, groups, students, showGroupModal,
         getRequirementsByAssignmentId, createRequirement, updateRequirement,
-        deleteRequirement, getGroupsByAssignmentId, createGroup,
+        deleteRequirement, getGroupsByAssignmentId, createGroup, deleteGroup,
+        getStudentsByCourse,
         setShowGroupModal
     } = useViewModel()
 
     useEffect(() => {
+        getStudentsByCourse(state.course.id!)
         getRequirementsByAssignmentId(state.assignment.id!)
         getGroupsByAssignmentId(state.assignment.id!)
     }, [])
@@ -76,10 +78,11 @@ const AssignmentPage = () => {
             <div role="tabpanel"
                 hidden={indexPanel !== 2}>
                 <GroupsPanel groups={ groups }
-                    students={ state.students }
+                    students={ students }
                     assignment={ state.assignment }
                     setShowGroupModal={ setShowGroupModal }
                     onSaveGroupHandler={ createGroup }
+                    onDeleteGroupHandler={ deleteGroup }
                     showGroupModal={ showGroupModal }
                     onCloseHandler={ () => setShowGroupModal(false) }/>
             </div>

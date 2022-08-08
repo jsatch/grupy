@@ -10,7 +10,10 @@ const GroupList = (props : GroupListProps) => {
     return <Grid container spacing={2} columns={props.columns}>
         {
             props.groups.map((group : GroupEntityType) => (
-                <GroupListItem key={ group.id } group={ group } mode={props.mode} />
+                <GroupListItem key={ group.id } 
+                    group={ group } 
+                    mode={props.mode} 
+                    onDeleteGroupHandler={ props.onDeleteGroupHandler } />
             ))
         }
     </Grid>
@@ -20,6 +23,7 @@ interface GroupListProps {
     groups : GroupEntityType[]
     columns : number
     mode : GroupListMode
+    onDeleteGroupHandler : (group : GroupEntityType) => void
 }
 
 export default GroupList

@@ -1,14 +1,12 @@
 import { Box, Button, Stack } from "@mui/material"
-import { useState } from "react"
 import { AssignmentEntityType } from "../../../Domain/Entities/AssignmentEntity"
 import { GroupEntityType } from "../../../Domain/Entities/GroupEntity"
 import { StudentEntityType } from "../../../Domain/Entities/StudentEntity"
-import { getMockGroupsData, getMockStudentsData } from "../../../Mock/mockData"
 import GroupList, { GroupListMode } from "../Group/GroupList/GroupList.component"
 import GroupModal from "../Group/GroupList/GroupModal.component"
 
 const GroupsPanel = (props : GroupsPanelProps) => {
-
+    
     return <Stack sx={ {mt : 2 } }>
         <Box sx={ { mb : 2 }}>
             <Button variant="contained" color="primary"
@@ -16,15 +14,20 @@ const GroupsPanel = (props : GroupsPanelProps) => {
                 Add
             </Button>
         </Box>
-        <GroupList groups={ props.groups } columns={2} mode={ GroupListMode.EDIT }/>
+        <GroupList groups={ props.groups } 
+            columns={2} 
+            mode={ GroupListMode.EDIT }
+            onDeleteGroupHandler={ props.onDeleteGroupHandler }/>
         {
             (()=> {
-                return <GroupModal show={props.showGroupModal} 
-                    assignmentId={props.assignment.id!}
-                    onCloseHandler={ props.onCloseHandler } 
-                    studentsLeft={ props.students }
-                    studentsInGroup={ [] }
-                    onSaveGroupHandler={ props.onSaveGroupHandler }/>
+                if (props.showGroupModal) {
+                    return <GroupModal show={props.showGroupModal} 
+                        assignmentId={props.assignment.id!}
+                        onCloseHandler={ props.onCloseHandler } 
+                        studentsLeft={ props.students }
+                        studentsInGroup={ [] }
+                        onSaveGroupHandler={ props.onSaveGroupHandler }/>
+                }
             })()
         }
         
@@ -39,6 +42,7 @@ interface GroupsPanelProps {
     setShowGroupModal : (show : boolean) => void
     onCloseHandler : () => void
     onSaveGroupHandler : (group : GroupEntityType) => void
+    onDeleteGroupHandler : (group : GroupEntityType) => void
 }
 
 export default GroupsPanel

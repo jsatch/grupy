@@ -10,7 +10,10 @@ const GroupListItem = (props : GroupListItemProps) => {
             <Button size="small">
                 Edit
             </Button>
-            <Button size="small">
+            <Button size="small"
+                onClick={ () => {
+                    props.onDeleteGroupHandler(props.group)
+                } }>
                 Delete
             </Button>
         </CardActions>
@@ -50,6 +53,7 @@ const GroupListItem = (props : GroupListItemProps) => {
 interface GroupListItemProps {
     group : GroupEntityType
     mode : GroupListMode
+    onDeleteGroupHandler : (group : GroupEntityType) => void
 }
 
 export default GroupListItem
