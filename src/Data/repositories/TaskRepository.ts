@@ -7,6 +7,10 @@ const TaskRepository = () => {
         return await datasource.getTasksByAssignmentByGroup(assignmentId, groupId)
     }
 
+    const getTaskByRequirementIdByGroupId = async (requirementId : string, groupId : string) => {
+        return await datasource.getTaskByRequirementByGroup(requirementId, groupId)
+    }
+
     const createTask = async (requirementId : string, groupId : string, assignmentId : string) => {
         return await datasource.createTask(requirementId, groupId, assignmentId)
     }
@@ -28,7 +32,8 @@ const TaskRepository = () => {
         createTask,
         updateTask,
         deleteTask,
-        deleteTaskByAssignmentIdByGroupId
+        deleteTaskByAssignmentIdByGroupId,
+        getTaskByRequirementIdByGroupId
     }
 }
 

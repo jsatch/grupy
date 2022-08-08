@@ -32,7 +32,7 @@ const RequirementListItem = (props : RequirementListItemProps) => {
                     <EditIcon />
                 </IconButton>
                 <IconButton onClick={ () => props.onDeleteRequirementHandler(
-                    props.requirement.id!, props.requirement.assignmentId) 
+                    props.requirement, props.requirement.assignmentId) 
                 }>
                     <ClearIcon />
                 </IconButton>
@@ -118,7 +118,7 @@ interface RequirementListItemProps {
     index : number
     requirement : RequirementEntityType
     onUpdateRequirementHandler : (requirement : RequirementEntityType) => void
-    onDeleteRequirementHandler : (requirementId : string, assignmentId : string) => void
+    onDeleteRequirementHandler : (requirement : RequirementEntityType, assignmentId : string) => void
 }
 
 export default RequirementListItem

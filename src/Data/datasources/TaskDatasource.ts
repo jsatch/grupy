@@ -32,6 +32,33 @@ const TaskDatasource = () => {
         }
     }
 
+    const getTaskByRequirementByGroup = async (requirementId : string, groupId : string) => {
+        try {
+            const records = await db.Records.getFullList("tasks", undefined, {
+                filter : `requirement.id='${requirementId}' && group.id='${groupId}'`
+            })
+            if (records.length > 0) {
+                return { results : {
+                    id : records[0].id,
+                    assignmentId : records[0].assignment.id,
+                    groupId : records[0].group.id,
+                    student : records[0].student,
+                    grade  : records[0].grade
+                } , error : ""}
+            }else {
+                return { results : null , error : `Error. No task found`}
+            }
+        }catch(e : any) {
+            if (e.status !== 0) {
+                console.error("Error:", e.data)
+                console.error("Error:", e.originalError)
+                return { results : null , error : `Error getting a task`}
+            }else {
+                return { results : [] , error :  ""}
+            }
+        }
+    }
+
     const createTask = async (requirementId : string, groupId : string, assignmentId : string) => {
         try {
             const record = await db.Records.create("tasks", {
@@ -122,7 +149,8 @@ const TaskDatasource = () => {
         createTask,
         updateTask,
         deleteTask,
-        deleteTasksByAssignmentByGroup
+        deleteTasksByAssignmentByGroup,
+        getTaskByRequirementByGroup
     }
 }
 

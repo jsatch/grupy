@@ -18,7 +18,7 @@ interface RequirementPanelProps {
     assignment : AssignmentEntityType
     onCreateRequirementHandler : (requirement : RequirementEntityType) => void
     onUpdateRequirementHandler : (requirement : RequirementEntityType) => void
-    onDeleteRequirementHandler : (requirementId : string, assignmentId : string) => void
+    onDeleteRequirementHandler : (requirement : RequirementEntityType, assignmentId : string) => void
 
 }
 

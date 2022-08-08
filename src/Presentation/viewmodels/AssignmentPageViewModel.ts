@@ -51,8 +51,8 @@ const AssignmentPageViewModel = () => {
         }
     }
 
-    const deleteRequirement = async(requirementId : string, assignmentId : string) => {
-        const {error} = await deleteRequirementUseCase(requirementId)
+    const deleteRequirement = async(requirement : RequirementEntityType, assignmentId : string) => {
+        const {error} = await deleteRequirementUseCase(requirement)
 
         if (error !== "") {
             setError(error)
