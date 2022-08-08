@@ -40,7 +40,13 @@ const RequirementDatasource = () => {
                 assignment : requirement.assignmentId
             })
             return { 
-                results : record, 
+                results : {
+                    id : record.id,
+                    description : record.description,
+                    category : record.category,
+                    complexity : record.complexity,
+                    assignmentId : record.assignment.id
+                }, 
                 error : ""
             }
         }catch(e : any) {
