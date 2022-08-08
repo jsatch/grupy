@@ -96,7 +96,7 @@ const AssignmentPageViewModel = () => {
     }
 
     const deleteGroup = async (group : GroupEntityType) => {
-        const {error} = await deleteGroupUseCase(group.id!)
+        const {error} = await deleteGroupUseCase(group)
 
         if (error !== "") {
             setError(error)

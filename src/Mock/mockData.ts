@@ -123,7 +123,7 @@ const getMockTasksData = () : TaskEntityType[] => {
             assignmentId : "1",
             complexity : 3,
             groupId : "1",
-            studentId : "1231",
+            grade : 0,
             student : null
         },
         {
@@ -133,7 +133,7 @@ const getMockTasksData = () : TaskEntityType[] => {
             assignmentId : "1",
             complexity : 5,
             groupId : "1",
-            studentId : null,
+            grade : 0,
             student : {
                 id : "1231",
                 name : "Luis Lopez",
@@ -149,7 +149,7 @@ const getMockTasksData = () : TaskEntityType[] => {
             assignmentId : "1",
             complexity : 3,
             groupId : "1",
-            studentId : null,
+            grade : 0,
             student : {
                 id : "1231",
                 name : "Juan Carlos Flores",

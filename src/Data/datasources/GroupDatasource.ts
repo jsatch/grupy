@@ -1,5 +1,6 @@
 import { db } from "."
 import { GroupEntityType } from "../../Domain/Entities/GroupEntity"
+import GroupsPanel from "../../Presentation/components/Assignment/GroupsPanel.component"
 
 const GroupDatasource = () => {
     const getGroupsByAssignment = async (assignmentId : string) => {
@@ -40,7 +41,12 @@ const GroupDatasource = () => {
                 students : group.students
             })
             return { 
-                results : record, 
+                results : {
+                    id : record.id,
+                    name : record.name,
+                    assignmentId : record.assignment.id,
+                    students : record.students
+                }, 
                 error : ""
             }
         }catch(e : any) {
