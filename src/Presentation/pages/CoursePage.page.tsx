@@ -55,6 +55,15 @@ const CoursePage = () => {
         })
     }
 
+    const handleOpenGrade = (assignment : AssignmentEntityType) => {
+        navigate("/grading", {
+            state : {
+                course : state.course,
+                assignment : assignment
+            }
+        })
+    }
+
     return <>
         <MainMenuBar pages={pages} />
         <Container>
@@ -78,6 +87,7 @@ const CoursePage = () => {
                     onCreateAssignmentHandler={ createAssignment }
                     onUpdateAssignmentHandler={ updateAssignment }
                     onSelectAssignmentHandler={ handleSelectAssignment }
+                    onGradeHandler={ handleOpenGrade }
                     onCloseHandler={ () => {
                         setAssignmentModalMode(AssignmentModalMode.Add)
                         setShowAssignmentModal(false) 

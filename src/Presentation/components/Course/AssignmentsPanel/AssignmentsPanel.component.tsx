@@ -18,6 +18,7 @@ const AssignmentsPanel = (props : AssignmentsPanelProps) => {
         <AssignmentList 
             assignments={props.assignments}
             onSelectAssignmentHandler={ props.onSelectAssignmentHandler }
+            onGradeHandler={ props.onGradeHandler }
              />
         {
             (() => {
@@ -44,6 +45,7 @@ interface AssignmentsPanelProps {
     onCreateAssignmentHandler : (assignment : AssignmentEntityType) => void
     onUpdateAssignmentHandler : (assignment : AssignmentEntityType) => void
     onSelectAssignmentHandler : (assignment : AssignmentEntityType) => void
+    onGradeHandler : (assignment : AssignmentEntityType) => void
     onCloseHandler : () => void
 }
 

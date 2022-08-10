@@ -2,6 +2,7 @@ import { Box, Button, IconButton, Stack } from "@mui/material"
 import UploadIcon from "@mui/icons-material/Upload"
 import GradingForm from "./GradingForm/GradingForm.component"
 import { TaskEntityType } from "../../../Domain/Entities/TaskEntity"
+import { StudentEntityType } from "../../../Domain/Entities/StudentEntity"
 
 const GradingPanel = (props : GradingPanelProps) => {
     return <>
@@ -17,12 +18,16 @@ const GradingPanel = (props : GradingPanelProps) => {
                 </IconButton>
             </Stack>
         </Box>
-        <GradingForm tasks={props.tasks}/>
+        <GradingForm tasks={props.tasks}
+            studentsInGroup={ props.studentsInGroup }
+            onUpdateTask={ props.onUpdateTask } />
     </>
 }
 
 interface GradingPanelProps {
     tasks : TaskEntityType[]
+    studentsInGroup : StudentEntityType[]
+    onUpdateTask : (task : TaskEntityType) => void
 }
 
 export default GradingPanel

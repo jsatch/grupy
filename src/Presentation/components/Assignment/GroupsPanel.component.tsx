@@ -17,6 +17,7 @@ const GroupsPanel = (props : GroupsPanelProps) => {
         <GroupList groups={ props.groups } 
             columns={2} 
             mode={ GroupListMode.EDIT }
+            onSelectGroupHandler={ () => {} }
             onDeleteGroupHandler={ props.onDeleteGroupHandler }/>
         {
             (()=> {

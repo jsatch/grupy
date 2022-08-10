@@ -1,8 +1,8 @@
-import { RequirementCategory } from "./RequirementEntity"
+import { RequirementCategory, RequirementEntityType } from "./RequirementEntity"
 import { StudentEntityType } from "./StudentEntity"
 
 const TaskEntity = (description : string, category : RequirementCategory, complexity : number,  grade : number,
-    assignmentId : string, studentId : string | null, student : StudentEntityType,  groupId: string, 
+    assignmentId : string, studentId : string, student : StudentEntityType,  groupId: string, requirementId : string, requirement : RequirementEntityType,
     id? : string) : TaskEntityType => {
     return {
         id : id,
@@ -11,6 +11,9 @@ const TaskEntity = (description : string, category : RequirementCategory, comple
         complexity : complexity,
         grade : grade,
         assignmentId : assignmentId,
+        requirementId : requirementId,
+        requirement : requirement,
+        studentId : studentId,
         student : student,
         groupId : groupId
     }
@@ -20,11 +23,14 @@ const TaskEntity = (description : string, category : RequirementCategory, comple
 export interface TaskEntityType {
     id? : string
     description? : string
-    category? : RequirementCategory,
-    complexity? : number,
+    category? : RequirementCategory
+    complexity? : number
     grade : number
     assignmentId : string
     groupId : string
+    requirementId : string
+    requirement? : RequirementEntityType
+    studentId : string
     student? : StudentEntityType | null
 }
 

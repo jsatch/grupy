@@ -21,7 +21,8 @@ const GroupListItem = (props : GroupListItemProps) => {
 
     const SelectButtons = () => {
         return <CardActions>
-            <Button size="small">
+            <Button size="small"
+                onClick={ () => { props.onSelectGroupHandler(props.group) } }>
                 Select
             </Button>
         </CardActions>
@@ -53,6 +54,7 @@ const GroupListItem = (props : GroupListItemProps) => {
 interface GroupListItemProps {
     group : GroupEntityType
     mode : GroupListMode
+    onSelectGroupHandler : (group : GroupEntityType) => void
     onDeleteGroupHandler : (group : GroupEntityType) => void
 }
 

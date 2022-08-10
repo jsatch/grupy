@@ -13,6 +13,7 @@ const GroupList = (props : GroupListProps) => {
                 <GroupListItem key={ group.id } 
                     group={ group } 
                     mode={props.mode} 
+                    onSelectGroupHandler={ props.onSelectGroupHandler }
                     onDeleteGroupHandler={ props.onDeleteGroupHandler } />
             ))
         }
@@ -23,6 +24,7 @@ interface GroupListProps {
     groups : GroupEntityType[]
     columns : number
     mode : GroupListMode
+    onSelectGroupHandler : (group : GroupEntityType) => void
     onDeleteGroupHandler : (group : GroupEntityType) => void
 }
 

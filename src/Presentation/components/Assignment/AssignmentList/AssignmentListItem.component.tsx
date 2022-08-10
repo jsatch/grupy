@@ -14,6 +14,10 @@ const AssignmentListItem = (props : AssignmentListItemProps) => {
                     onClick={ () => props.onSelectAssignmentHandler(props.assignment) }>
                     Edit
                 </Button>
+                <Button size="small"
+                    onClick={ () => props.onGradeHandler(props.assignment) }>
+                    Grade
+                </Button>
             </CardActions>
         </Card>
     </Grid>
@@ -22,6 +26,7 @@ const AssignmentListItem = (props : AssignmentListItemProps) => {
 interface AssignmentListItemProps {
     assignment : AssignmentEntityType
     onSelectAssignmentHandler : (assignment : AssignmentEntityType) => void
+    onGradeHandler : (assignment : AssignmentEntityType) => void
 }
 
 export default AssignmentListItem

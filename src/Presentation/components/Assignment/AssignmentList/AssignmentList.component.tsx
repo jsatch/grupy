@@ -8,7 +8,8 @@ const AssignmentList = (props : AssignmentListProps) => {
             props.assignments.map((assignment : AssignmentEntityType) => (
                 <AssignmentListItem 
                     key={assignment.id} assignment={assignment}
-                    onSelectAssignmentHandler={ props.onSelectAssignmentHandler } />
+                    onSelectAssignmentHandler={ props.onSelectAssignmentHandler }
+                    onGradeHandler={ props.onGradeHandler } />
             ))
         }
         
@@ -18,6 +19,7 @@ const AssignmentList = (props : AssignmentListProps) => {
 interface AssignmentListProps {
     assignments : AssignmentEntityType[]
     onSelectAssignmentHandler : (assignment : AssignmentEntityType) => void
+    onGradeHandler : (assignment : AssignmentEntityType) => void
 }
 
 export default AssignmentList

@@ -1,3 +1,4 @@
+import { Record } from "pocketbase"
 import { db } from "."
 import { TaskEntityType } from "../../Domain/Entities/TaskEntity"
 
@@ -11,14 +12,42 @@ const TaskDatasource = () => {
             const tasks : TaskEntityType[] = records.map((record : any) => {
                 return {
                     id : record.id,
-                    assignmentId : record.assignment.id,
-                    groupId : record.group.id,
-                    student : record.student,
+                    assignmentId : record.assignment,
+                    groupId : record.group,
+                    studentId : record.student,
+                    requirementId : record.requirement,
                     grade : record.grade
                 }
             })
+            let completeTasks : TaskEntityType[] = []
+            for (let task of tasks) {
+                const record = await db.Records.getOne("requirements", task.requirementId)
+                let recordStudent: Record;
+                if (task.studentId !== "") {
+                    recordStudent = await db.Records.getOne("students", task.studentId)
+                }
+
+                const newTask : TaskEntityType = {
+                    ...task,
+                    requirement : {
+                        id : record.id,
+                        assignmentId : record.assignment,
+                        description : record.description,
+                        complexity : record.complexity,
+                        category : record.category
+                    },
+                    student : task.studentId !== "" ? {
+                        id : recordStudent!.id,
+                        name : recordStudent!.name,
+                        studentId : recordStudent!.studentId,
+                        courseId : recordStudent!.courseId,
+                        email : recordStudent!.email
+                    } : undefined
+                }
+                completeTasks.push(newTask)
+            }
             return { 
-                results : tasks, 
+                results : completeTasks, 
                 error : ""
             }
         }catch(e : any) {
