@@ -19,8 +19,6 @@ const GradingTask = (props : GradingTaskProps) => {
         })
     }
 
-    console.log("GradingTask:", props.task)
-
     return <TableRow>
         <TableCell>{ `R${ props.index + 1 }` }</TableCell>
         <TableCell>{ props.task.requirement!.description }</TableCell>

@@ -27,7 +27,7 @@ const GradingPage = () => {
     const state = location.state as GradingPageState
 
     const {
-        error, groups, tasks, selectedGroup, 
+        error, groups, tasks, selectedGroup, groupReportData,
         setSelectedGroup, getGroupsByAssignmentId, getTasksByAssignmentIdByGroupId, updateTask } = useViewModel()
 
     useEffect(()=> {
@@ -47,9 +47,12 @@ const GradingPage = () => {
     }
 
     const handleUpdateTask = (task : TaskEntityType) => {
-        console.log("handleUpdateTask:", task)
+        
         updateTask(task.id!, task.studentId, task.grade, state.assignment.id!, selectedGroup!.id!)
     }
+
+    console.log("handleUpdateTask:", groupReportData)
+
 
     return <>
         <MainMenuBar pages={pages} />
@@ -70,6 +73,7 @@ const GradingPage = () => {
                 <Grid item xs={9}>
                 <Box sx={{ width: '100%' }}>
                     <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+                        <h2>{ selectedGroup !== null ?selectedGroup?.name : "Select a group" }</h2>
                         <Tabs value={indexPanel} onChange={handleChange}>
                             <Tab label="Grading" />
                             <Tab label="Results" />
@@ -84,7 +88,7 @@ const GradingPage = () => {
                 </div>
                 <div role="tabpanel"
                     hidden={indexPanel !== 1}>
-                    <ResultsPanel />
+                    <ResultsPanel groupReportData={ groupReportData }/>
                 </div>
                 </Grid>
             </Grid>
