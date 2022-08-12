@@ -51,9 +51,6 @@ const GradingPage = () => {
         updateTask(task.id!, task.studentId, task.grade, state.assignment.id!, selectedGroup!.id!)
     }
 
-    console.log("handleUpdateTask:", groupReportData)
-
-
     return <>
         <MainMenuBar pages={pages} />
         <Container>

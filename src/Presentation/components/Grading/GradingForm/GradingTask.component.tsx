@@ -29,23 +29,32 @@ const GradingTask = (props : GradingTaskProps) => {
         </TableCell>
         <TableCell>{ props.task.requirement!.complexity }</TableCell>
         <TableCell>
-            <TextField
-                    label="Student"
-                    select
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    value={ props.task.studentId === "" ? "0" : props.task.studentId }
-                    onChange={ handleStudentChange }>
-                <MenuItem key="0" value={ "0" }>-</MenuItem>
-                {
-                    props.studentsInGroup.map((student : StudentEntityType) => {
-                        return <MenuItem key={ student.id! } value={ student.id! }>
-                            { student.name }
-                        </MenuItem>
-                    })
-                }
-            </TextField>
+            {
+                (()=>{
+                    if (props.task.requirement!.category === RequirementCategory.GRUPAL) {
+                        return "-"
+                    }else {
+                        return <TextField
+                                label="Student"
+                                select
+                                InputLabelProps={{
+                                    shrink: true,
+                                }}
+                                value={ props.task.studentId === "" ? "0" : props.task.studentId }
+                                onChange={ handleStudentChange }>
+                            <MenuItem key="0" value={ "0" }>-</MenuItem>
+                            {
+                                props.studentsInGroup.map((student : StudentEntityType) => {
+                                    return <MenuItem key={ student.id! } value={ student.id! }>
+                                        { student.name }
+                                    </MenuItem>
+                                })
+                            }
+                        </TextField>
+                    }
+                })()
+            }
+            
         </TableCell>
         <TableCell>
             <TextField
