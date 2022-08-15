@@ -1,10 +1,14 @@
 const { app, BrowserWindow } = require("electron");
 
+const path = require('path')
+
 const createWindow = () => {
     const win = new BrowserWindow({
         width : 1080,
         height : 920,
-        webPreferences : {}
+        webPreferences : {
+            preload : path.join(__dirname, '../backend/pocketbase.js')
+        }
     })
 
     win.loadURL("http://localhost:3000")
@@ -13,7 +17,6 @@ const createWindow = () => {
 app.on("ready", createWindow)
 
 app.on("window-all-closed", () => {
-    pockebaseProcess.kill()
     if (process.platform !== "darwin") {
         app.quit()
     }
