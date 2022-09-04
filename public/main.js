@@ -1,17 +1,20 @@
 const { app, BrowserWindow } = require("electron");
+const isDev = require("electron-is-dev")
 
 const path = require('path')
+
+require("@electron/remote/main").initialize()
 
 const createWindow = () => {
     const win = new BrowserWindow({
         width : 1080,
         height : 920,
         webPreferences : {
-            preload : path.join(__dirname, '../backend/pocketbase.js')
+            enableRemoteModule : true
         }
     })
 
-    win.loadURL("http://localhost:3000")
+    win.loadURL(isDev ? "http://localhost:3000" : `file://${path.join(__dirname, "../build/index.html")}`)
 }
 
 app.on("ready", createWindow)

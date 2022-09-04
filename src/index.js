@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes, HashRouter  } from 'react-router-dom';
 import './index.css';
 import AssignmentPage from './Presentation/pages/AssignmentPage.page';
 import CoursePage from './Presentation/pages/CoursePage.page';
@@ -12,7 +12,7 @@ import reportWebVitals from './reportWebVitals';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
     <React.StrictMode>
-        <BrowserRouter>
+        <HashRouter>
             <Routes>
                 <Route path='/' element={<MainPage />} />
                 <Route path='/settings' element={<SettingsPage />} />
@@ -20,7 +20,7 @@ root.render(
                 <Route path='/assignment' element={<AssignmentPage />} />
                 <Route path='/grading' element={<GradingPage />} />
             </Routes>
-        </BrowserRouter>
+        </HashRouter>
     </React.StrictMode>
 );
 
