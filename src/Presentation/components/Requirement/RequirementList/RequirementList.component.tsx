@@ -1,5 +1,6 @@
 import { 
-    IconButton, MenuItem, Paper, Select, TableBody, TableCell, TableContainer, TableRow, TextField 
+    FormControl,
+    IconButton, InputLabel, MenuItem, Paper, Select, TableBody, TableCell, TableContainer, TableRow, TextField 
 } from "@mui/material"
 import SaveIcon from "@mui/icons-material/Save"
 import { useState } from "react"
@@ -68,11 +69,14 @@ const RequirementList = (props : RequirementListProps) => {
                         helperText={ requirementDescriptionError }/>
                 </TableCell>
                 <TableCell>
-                    <Select label="Tipo" value={ requirementCategory }
-                        onChange={ handleChangeRequirementCategory }>
-                        <MenuItem value={0}>Grupal</MenuItem>
-                        <MenuItem value={1}>Individual</MenuItem>
-                    </Select>
+                    <FormControl>
+                        <InputLabel >Tipo</InputLabel>
+                        <Select label="Tipo" value={ requirementCategory }
+                            onChange={ handleChangeRequirementCategory }>
+                            <MenuItem value={0}>Grupal</MenuItem>
+                            <MenuItem value={1}>Individual</MenuItem>
+                        </Select>
+                    </FormControl>
                 </TableCell>
                 <TableCell>
                     <Select label="Complejidad" value={ requirementComplexity }
