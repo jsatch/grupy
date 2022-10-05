@@ -111,9 +111,10 @@ const TaskDatasource = () => {
     }
 
     const updateTask = async (taskId: string, studentId : string, grade : number) => {
+        console.log("TaskDatasource.ts", studentId)
         try {
             const record = await db.Records.update("tasks", taskId, {
-                student : studentId,
+                student : studentId != "0" ? studentId : null,
                 grade : grade
             })
             return { 
